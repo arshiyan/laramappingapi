@@ -9,10 +9,10 @@ interface FileRepositoryInterface
      */
     public function getYaml();
 
+    public function getData($content,$format);
+
     /**
      * @return mixed
      */
-    public function toCollect($collect);
-
     public function store( $collect);
 }

@@ -7,7 +7,7 @@ class FetcherService
 {
     public function __construct()
     {
-        //$this->detectApiFormat($string);
+
     }
 
     /**

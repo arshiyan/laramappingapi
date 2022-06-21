@@ -28,7 +28,8 @@ class FetcherServiceProvider extends ServiceProvider
     {
         Response::macro('checkExtention', function ($value) {
             $res = new FetcherService();
-           return Response::make($res->detectApiFormat(file_get_contents($value)));
+           //return Response::make($res->detectApiFormat(file_get_contents($value)));
+           return Response::json($res->detectApiFormat(file_get_contents($value)));
         });
 
     }

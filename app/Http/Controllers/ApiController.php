@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\FileRepositoryInterface;
+use App\Traits\FileTrait;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
+    use FileTrait;
+
     protected $apiURL;
 
     public function __construct()
@@ -22,8 +25,10 @@ class ApiController extends Controller
     public function index(FileRepositoryInterface $repository)
     {
         $fileFormat =  response()->checkExtention($this->apiURL);
-        $collct = $repository->toCollect(file_get_contents($this->apiURL));
-        $getYamel = $repository->getYaml();
+
+        $usersArray = $this->mapping($repository->getData(file_get_contents($this->apiURL),$fileFormat->getData()),$repository->getYaml());
+
+        return response()->json($repository->store($usersArray));
 
     }
 }
