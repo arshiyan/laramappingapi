@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\FileRepositoryInterface;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -10,13 +11,19 @@ class ApiController extends Controller
 
     public function __construct()
     {
-        $this->apiURL = "https://reqres.in/api/users?page=2";
-        // $this->apiURL = "https://stageappsp.smashfly.com/contactmanagerservice/v2/ContactManagerRestService.svc/help/operations/SaveContact#request-xml";
+        $this->apiURL = "https://reqres.in/api/users";
+        //$this->apiURL = "http://127.0.0.1:8000/api/xml";
 
     }
 
-    public function index()
+    /**
+     * @return mixed
+     */
+    public function index(FileRepositoryInterface $repository)
     {
-        return response()->checkExtention($this->apiURL);
+        $fileFormat =  response()->checkExtention($this->apiURL);
+        $collct = $repository->toCollect(file_get_contents($this->apiURL));
+        $getYamel = $repository->getYaml();
+
     }
 }
